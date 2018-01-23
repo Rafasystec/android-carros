@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".CarrosApplication">
-        <activity android:name="br.com.livroandroid.carros.activity.MainActivity">
+        <activity android:name="br.com.livroandroid.carros.activity.MainActivity"
+            android:theme="@style/AppTheme.NavDrawer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
