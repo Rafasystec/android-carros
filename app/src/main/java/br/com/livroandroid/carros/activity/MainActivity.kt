@@ -13,15 +13,15 @@ import br.com.livroandroid.carros.extensions.setupToolbar
 import br.com.livroandroid.carros.extensions.toast
 
 
-class MainActivity : BaseActivity() {//, NavigationView.OnNavigationItemSelectedListener{
+class MainActivity : BaseActivity() , NavigationView.OnNavigationItemSelectedListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //setupToolbar(R.id.toolbar)
-       //setupNavDrawer()
+        setupToolbar(R.id.toolbar)
+        setupNavDrawer()
     }
-/*
+
     private fun setupNavDrawer(){
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
@@ -34,8 +34,8 @@ class MainActivity : BaseActivity() {//, NavigationView.OnNavigationItemSelected
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
     }
-    */
-/*
+
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
             R.id.nav_item_carros_todos -> {
@@ -61,5 +61,5 @@ class MainActivity : BaseActivity() {//, NavigationView.OnNavigationItemSelected
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
-    */
+
 }
