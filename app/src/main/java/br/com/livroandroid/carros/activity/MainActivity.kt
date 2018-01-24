@@ -13,6 +13,7 @@ import br.com.livroandroid.carros.R
 import br.com.livroandroid.carros.domain.TipoCarro
 import br.com.livroandroid.carros.extensions.setupToolbar
 import br.com.livroandroid.carros.extensions.toast
+import org.jetbrains.anko.startActivity
 
 
 class MainActivity : BaseActivity() , NavigationView.OnNavigationItemSelectedListener{
@@ -45,21 +46,30 @@ class MainActivity : BaseActivity() , NavigationView.OnNavigationItemSelectedLis
             }
             R.id.nav_item_carros_classicos -> {
                 toast("Clicked on Classic Cars")
+                /*
                 val intent = Intent(context,CarrosActivity::class.java)
                 intent.putExtra("tipo",TipoCarro.classicos)
                 startActivity(intent)
+                */
+                startActivity<CarrosActivity>("tipo" to TipoCarro.classicos)
             }
             R.id.nav_item_carros_esportivos -> {
                 toast("Clicked on Sportive Cars")
+                /*
                 val intent = Intent(context,CarrosActivity::class.java)
                 intent.putExtra("tipo",TipoCarro.esportivos)
                 startActivity(intent)
+                */
+                startActivity<CarrosActivity>("tipo" to TipoCarro.esportivos)
             }
             R.id.nav_item_carros_luxo -> {
-                toast("Clicked on lux Cars")
+                toast("Clicked on lux Cars, now using extensions from Anko")
+                /*
                 val intent = Intent(context,CarrosActivity::class.java)
                 intent.putExtra("tipo",TipoCarro.luxo)
                 startActivity(intent)
+                */
+                startActivity<CarrosActivity>("tipo" to TipoCarro.luxo)
             }
             R.id.nav_item_site_livro -> {
                 toast("Clicked on Book's home page")
