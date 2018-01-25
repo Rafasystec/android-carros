@@ -26,10 +26,10 @@ RecyclerView.Adapter<CarroAdpter.CarrosViewHolder>(){
         var cardView: CardView
         init {
             //Saves view on view holder
-            tNome = view.findViewById<TextView>(R.id.tNome)
-            img = view.findViewById<ImageView>(R.id.img)
-            progress = view.findViewById<ProgressBar>(R.id.progress)
-            cardView = view.findViewById<CardView>(R.id.card_view)
+            tNome       = view.findViewById<TextView>(R.id.tNome)
+            img         = view.findViewById(R.id.img)
+            progress    = view.findViewById<ProgressBar>(R.id.progress)
+            cardView    = view.findViewById<CardView>(R.id.card_view)
         }
     }
 

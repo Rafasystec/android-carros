@@ -1,15 +1,20 @@
 package br.com.livroandroid.carros.fragments
 
-import android.content.Context
-import android.net.Uri
+
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
+import br.com.livroandroid.carros.extensions.toast
 import br.com.livroandroid.carros.R
+import br.com.livroandroid.carros.adapter.CarroAdpter
+import br.com.livroandroid.carros.domain.Carro
+import br.com.livroandroid.carros.domain.CarroService
 import br.com.livroandroid.carros.domain.TipoCarro
 
 /**
@@ -24,6 +29,8 @@ class CarrosFragment : BaseFragment(){
 
 
     private var tipo: TipoCarro = TipoCarro.classicos
+    private var carros = listOf<Carro>()
+    var recyclerView : RecyclerView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         tipo = arguments.getSerializable("tipo") as TipoCarro
@@ -36,6 +43,27 @@ class CarrosFragment : BaseFragment(){
         val tipoString = getString(tipo.string)
         textView?.text = "Carros $tipoString"
         return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView?.layoutManager = LinearLayoutManager(activity)
+        recyclerView?.itemAnimator = DefaultItemAnimator()
+        recyclerView?.setHasFixedSize(true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        taskCarros()
+    }
+
+    fun taskCarros(){
+        //BUsca os carros
+        this.carros = CarroService.getCarros(context,tipo)
+        //updates the list
+        recyclerView?.adapter = CarroAdpter(carros,
+                {carro: Carro -> toast("@Clicou no carro ${carro.nome}")})
     }
 
 }
