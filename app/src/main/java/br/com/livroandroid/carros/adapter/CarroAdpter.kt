@@ -20,13 +20,13 @@ class CarroAdpter(val carros: List<Carro>,
                   val onClick: (Carro) -> Unit):
 RecyclerView.Adapter<CarroAdpter.CarrosViewHolder>(){
     class CarrosViewHolder(view : View) : RecyclerView.ViewHolder(view){
-        var tNome : TextView
+        //var tNome : TextView
         var img: ImageView
         var progress: ProgressBar
         var cardView: CardView
         init {
             //Saves view on view holder
-            tNome       = view.findViewById<TextView>(R.id.tNome)
+            //tNome       = view.findViewById<TextView>(R.id.tNome)
             img         = view.findViewById(R.id.img)
             progress    = view.findViewById<ProgressBar>(R.id.progress)
             cardView    = view.findViewById<CardView>(R.id.card_view)
@@ -45,7 +45,7 @@ RecyclerView.Adapter<CarroAdpter.CarrosViewHolder>(){
         //recupera o objeto carro
         val carro = carros[position]
         //updates the car data
-        holder?.tNome?.text = carro.nome
+        //holder?.tNome?.text = carro.nome
         holder?.progress?.visibility = View.VISIBLE
         Picasso.with(context).load(carro.urlFoto).fit().into(holder?.img,
                 object : com.squareup.picasso.Callback{
