@@ -16,6 +16,7 @@ import br.com.livroandroid.carros.adapter.CarroAdpter
 import br.com.livroandroid.carros.domain.Carro
 import br.com.livroandroid.carros.domain.CarroService
 import br.com.livroandroid.carros.domain.TipoCarro
+import kotlinx.android.synthetic.main.fragment_carros.*
 
 /**
  * A simple [Fragment] subclass.
@@ -30,7 +31,7 @@ class CarrosFragment : BaseFragment(){
 
     private var tipo: TipoCarro = TipoCarro.classicos
     private var carros = listOf<Carro>()
-    var recyclerView : RecyclerView? = null
+    //var recyclerView : RecyclerView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         tipo = arguments.getSerializable("tipo") as TipoCarro
@@ -47,7 +48,7 @@ class CarrosFragment : BaseFragment(){
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
+        //recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         recyclerView?.itemAnimator = DefaultItemAnimator()
         recyclerView?.setHasFixedSize(true)
@@ -62,8 +63,10 @@ class CarrosFragment : BaseFragment(){
         //BUsca os carros
         this.carros = CarroService.getCarros(context,tipo)
         //updates the list
-        recyclerView?.adapter = CarroAdpter(carros,
-                {carro: Carro -> toast("@Clicou no carro ${carro.nome}")})
+        recyclerView?.adapter = CarroAdpter(carros){onClickCarro(it)}
+    }
+    fun onClickCarro(carro:Carro){
+        toast("Clicou no carro ${carro.nome}")
     }
 
 }

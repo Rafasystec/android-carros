@@ -10,6 +10,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import br.com.livroandroid.carros.R
 import br.com.livroandroid.carros.domain.Carro
+import br.com.livroandroid.carros.extensions.loadUrl
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.adapter_carro.view.*
 
@@ -21,13 +22,13 @@ class CarroAdpter(val carros: List<Carro>,
 RecyclerView.Adapter<CarroAdpter.CarrosViewHolder>(){
     class CarrosViewHolder(view : View) : RecyclerView.ViewHolder(view){
         //TODO: Check if I made some change at home
-        //var tNome : TextView
+        var tNome : TextView
         var img: ImageView = view.findViewById(R.id.img)
         var progress: ProgressBar
         var cardView: CardView
         init {
             //Saves view on view holder
-            //tNome       = view.findViewById<TextView>(R.id.tNome)
+            tNome       = view.findViewById<TextView>(R.id.tNome)
             progress    = view.findViewById<ProgressBar>(R.id.progress)
             cardView    = view.findViewById<CardView>(R.id.card_view)
         }
@@ -45,8 +46,10 @@ RecyclerView.Adapter<CarroAdpter.CarrosViewHolder>(){
         //recupera o objeto carro
         val carro = carros[position]
         //updates the car data
-        //holder?.tNome?.text = carro.nome
+        holder?.tNome?.text = carro.nome
         holder?.progress?.visibility = View.VISIBLE
+        holder?.img?.loadUrl(carro.urlFoto,holder?.progress)
+        /*
         Picasso.with(context).load(carro.urlFoto).fit().into(holder?.img,
                 object : com.squareup.picasso.Callback{
                     override fun onSuccess() {
@@ -58,7 +61,7 @@ RecyclerView.Adapter<CarroAdpter.CarrosViewHolder>(){
                         holder?.progress?.visibility = View.GONE
                     }
                 }
-        )
+        )*/
         holder?.itemView?.setOnClickListener{ onClick(carro)}
     }
 }
