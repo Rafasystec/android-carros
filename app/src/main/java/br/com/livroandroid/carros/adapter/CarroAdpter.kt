@@ -21,47 +21,25 @@ class CarroAdpter(val carros: List<Carro>,
                   val onClick: (Carro) -> Unit):
 RecyclerView.Adapter<CarroAdpter.CarrosViewHolder>(){
     class CarrosViewHolder(view : View) : RecyclerView.ViewHolder(view){
-        //TODO: Check if I made some change at home
-        var tNome : TextView
-        var img: ImageView = view.findViewById(R.id.img)
-        var progress: ProgressBar
-        var cardView: CardView
-        init {
-            //Saves view on view holder
-            tNome       = view.findViewById<TextView>(R.id.tNome)
-            progress    = view.findViewById<ProgressBar>(R.id.progress)
-            cardView    = view.findViewById<CardView>(R.id.card_view)
-        }
     }
 
     override fun getItemCount() = this.carros.size
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CarrosViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.adapter_carro,parent,false)
-        val holder = CarrosViewHolder(view)
-        return holder
+        return  CarrosViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CarrosViewHolder?, position: Int) {
-        val context = holder?.itemView?.context
+    override fun onBindViewHolder(holder: CarrosViewHolder, position: Int) {
         //recupera o objeto carro
         val carro = carros[position]
+        //Declara a variável view para facilitar o acesso abaixo
+        //A view contém as variáveis definidas no XML (lembre do nome de cada id)
+        val view = holder.itemView
         //updates the car data
-        holder?.tNome?.text = carro.nome
-        holder?.progress?.visibility = View.VISIBLE
-        holder?.img?.loadUrl(carro.urlFoto,holder?.progress)
-        /*
-        Picasso.with(context).load(carro.urlFoto).fit().into(holder?.img,
-                object : com.squareup.picasso.Callback{
-                    override fun onSuccess() {
-                        //Download OK
-                        holder?.progress?.visibility = View.GONE
-                    }
-
-                    override fun onError() {
-                        holder?.progress?.visibility = View.GONE
-                    }
-                }
-        )*/
-        holder?.itemView?.setOnClickListener{ onClick(carro)}
+        with(carro) {
+            view.tNome.text = nome
+            view.img.loadUrl(urlFoto, view.progress)
+            view.setOnClickListener { onClick(this) }
+        }
     }
 }

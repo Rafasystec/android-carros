@@ -1,9 +1,11 @@
 package br.com.livroandroid.carros.domain
 
+import java.io.Serializable
+
 /**
  * Created by root on 23/01/18.
  */
-class Carro {
+class Carro : Serializable{
     var id: Long = 0
     var tipo = ""
     var nome = ""
