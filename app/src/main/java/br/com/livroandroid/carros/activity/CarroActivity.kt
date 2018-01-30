@@ -5,6 +5,7 @@ import br.com.livroandroid.carros.R
 import br.com.livroandroid.carros.domain.Carro
 import br.com.livroandroid.carros.extensions.loadUrl
 import br.com.livroandroid.carros.extensions.setupToolbar
+import br.com.livroandroid.carros.fragments.MapsFragment
 import kotlinx.android.synthetic.main.activity_carro_content.*
 
 class CarroActivity : BaseActivity() {
@@ -24,6 +25,11 @@ class CarroActivity : BaseActivity() {
         //Variaveis geradas automaticamente pelo kotlin Extension
         tDesc.text = carro.desc
         img.loadUrl(carro.urlFoto)
+        //adicionar o mapa
+        val mapaFragment = MapsFragment()
+        mapaFragment.arguments = intent.extras
+        supportFragmentManager.beginTransaction().replace(R.id.mapaFragment,mapaFragment)
+                .commit()
     }
 
 }
