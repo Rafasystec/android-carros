@@ -1,9 +1,13 @@
 package br.com.livroandroid.carros.activity
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -17,16 +21,26 @@ import br.com.livroandroid.carros.extensions.toast
 import org.jetbrains.anko.startActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import br.com.livroandroid.carros.adapter.TabsAdapter
+import br.com.livroandroid.carros.util.firebase.Config
 
 
 class MainActivity : BaseActivity() , NavigationView.OnNavigationItemSelectedListener{
 
+    var mRegistrationBroadcastReceiver: BroadcastReceiver?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupToolbar(R.id.toolbar)
         setupNavDrawer()
         setupViewPagerTabs()
+        mRegistrationBroadcastReceiver = object:BroadcastReceiver(){
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if(intent?.action == Config.STR_PUSH){
+                    val message = intent.getStringExtra("message")
+                   // showNotification("EDMTDev",message)
+                }
+            }
+        }
     }
 
     private fun setupNavDrawer(){
@@ -81,4 +95,14 @@ class MainActivity : BaseActivity() , NavigationView.OnNavigationItemSelectedLis
         tabLayout.setTabTextColors(cor,cor)
     }
 
+    override fun onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver)
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, IntentFilter("registrationComplete"))
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, IntentFilter(Config.STR_PUSH))
+    }
 }
