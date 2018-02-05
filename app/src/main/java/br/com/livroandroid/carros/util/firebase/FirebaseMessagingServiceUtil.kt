@@ -3,6 +3,7 @@ package br.com.livroandroid.carros.util.firebase
 import android.content.Intent
 import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
+import br.com.livroandroid.carros.utils.NotificationUtils
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -13,7 +14,7 @@ class FirebaseMessagingServiceUtil: FirebaseMessagingService() {
     val TAG = "FIRE_BASE"
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         //When we receive the message
-        //handleNotification(remoteMessage!!.notification?.body)
+        handleNotification(remoteMessage!!.notification?.body)
 
         Log.d(TAG,"onMessageReceived was called")
         if(remoteMessage.notification != null){
@@ -21,12 +22,13 @@ class FirebaseMessagingServiceUtil: FirebaseMessagingService() {
             val msg = remoteMessage.notification?.body
             Log.d(TAG,"Título da msg"+title)
             Log.d(TAG,"corpo da msg"+msg)
+            //NotificationUtils.create()
         }
     }
 
-    //private fun handleNotification(body: String?) {
-        //val pushNotification = Intent(Config.STR_PUSH)
-        //pushNotification.putExtra("message",body)
-        //LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification)
-    //}
+    private fun handleNotification(body: String?) {
+        val pushNotification = Intent(Config.STR_PUSH)
+        pushNotification.putExtra("message",body)
+        LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification)
+    }
 }
