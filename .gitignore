@@ -38,6 +38,13 @@ captures/
 .idea/tasks.xml
 .idea/gradle.xml
 .idea/dictionaries
+.idea/misc.xml
+.idea/modules.xml
+.idea/runConfigurations.xml
+.idea/vcs.xml
+gradlew.bat
+/gredle/wrapper
+
 .idea/libraries
 
 # Keystore files
