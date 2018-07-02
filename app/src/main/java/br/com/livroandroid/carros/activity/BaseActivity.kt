@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity
  */
 @SuppressLint("Registered")
 open class BaseActivity : AppCompatActivity(){
-
+    //Guithub
     protected val context: Context get() = this
 
 }
