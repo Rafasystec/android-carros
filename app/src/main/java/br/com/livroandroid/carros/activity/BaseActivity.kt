@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 @SuppressLint("Registered")
 open class BaseActivity : AppCompatActivity(){
     //Guithub
+    //THIS IS FOR FIX SOME PROBLEMS IN SPRINT 1.5
     protected val context: Context get() = this
 
 }
